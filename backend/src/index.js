@@ -25,7 +25,7 @@ app.use(morgan('dev'));
 // ── Routes ────────────────────────────────────────────────────────────────────
 app.use('/api/auth',      authRoutes);
 app.use('/api/projects',  projectRoutes);
-app.use('/api/projects',  taskRoutes);       // /api/projects/:projectId/tasks
+app.use('/api/projects',  taskRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 
 // ── Health check ──────────────────────────────────────────────────────────────
@@ -38,4 +38,10 @@ app.use((err, _req, res, _next) => {
   res.status(status).json({ error: err.message || 'Internal server error' });
 });
 
-app.listen(PORT, () => console.log(`API running on :${PORT}`));
+// For local dev
+if (require.main === module) {
+  app.listen(PORT, () => console.log(`API running on :${PORT}`));
+}
+
+// For Vercel
+module.exports = app;
