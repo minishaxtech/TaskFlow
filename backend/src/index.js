@@ -13,12 +13,7 @@ const app  = express();
 const PORT = process.env.PORT || 4000;
 
 // ── Middleware ────────────────────────────────────────────────────────────────
-const allowedOrigins = [
-  process.env.FRONTEND_URL,
-  /\.vercel\.app$/,
-  'http://localhost:5173',
-].filter(Boolean);
-app.use(cors({ origin: allowedOrigins, credentials: true }));
+app.use(cors({ origin: '*', credentials: false }));
 app.use(express.json());
 app.use(morgan('dev'));
 
